@@ -1,9 +1,4 @@
 <?php
-/**
- * Theme functions and definitions
- *
- * @package HelloElementor
- */
 
 if ( !defined( 'ABSPATH' ) ) {	
 	//throw new Exception('Acceso directo no permitido.');
