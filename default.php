@@ -1,7 +1,5 @@
 <?php
-
 use MEC\SingleBuilder\Widgets\EventOrganizers\EventOrganizers;
-
 /** @var MEC_skin_single $this */
 /** @var boolean $fes */
 /** @var stdClass $event */
@@ -64,12 +62,9 @@ $banner_module = $this->can_display_banner_module($event);
 		<!-- end breadcrumbs -->
 			<style>
 				.contenedor_evento_abierto{
-				margin: 0 auto !important;
-    			float: none !important;
+				margin: 0 auto !important; float: none !important;
 				}
-				.mec-event-image a img{
-					width: 100%;
-				}
+				.mec-event-image a img{		width: 100%;				}
 
 				.home #site-header .header-inner{
 					display:none !important;
@@ -80,10 +75,8 @@ $banner_module = $this->can_display_banner_module($event);
 				}
 
 				.bloque_datos h1.mec-event-title{
-					font-size: 25px;
-					text-align: center;
-					font-weight: 800;
-					margin-bottom: 40px;
+					font-size: 25px;text-align: center;
+					font-weight: 800;margin-bottom: 40px;
 				}
 
 				.text-label-evento{
@@ -94,25 +87,15 @@ $banner_module = $this->can_display_banner_module($event);
 				}
 
 				.bloque_minuto{
-					margin-left: 17%;
-					border-right:1px solid #bebebe;
-					margin-right: 10px;
+					margin-left: 17%;border-right:1px solid #bebebe;margin-right: 10px;
 				}
 
-				.bloque_descripcion{
-					margin-top: 80px;
+				.bloque_descripcion{margin-top: 80px;}
+
+				.lista-descripcion{font-size: 1rem !important;line-height: 1.5 !important;color: #000000 !important;
 				}
 
-				.lista-descripcion{
-					font-size: 1rem !important;					
-					line-height: 1.5 !important;
-					color: #000000 !important;
-				}
-
-				.lista_hora{				
-					font-weight: 800;
-					margin-right: 8px;
-				}
+				.lista_hora{font-weight: 800;margin-right: 8px;}
 
 				.opcion{
 					padding-left: 40px;
