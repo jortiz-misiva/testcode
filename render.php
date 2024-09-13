@@ -159,7 +159,7 @@ if (!defined('MECEXEC')) {
                             $timestamp = $event->date['start']['timestamp'];
                             $horainicio = date('H\hi', $timestamp);
                             $timestamp = $event->date['end']['timestamp'];
-                            $horafin = date('H\hi', $timestamp); 
+                            $horafin = date('H\hi', $timestamp);
                             ?>
                         <div class="btn-fecha"><?= $fechaFormateada; ?></div>
                         <div class="btn-hora"> De <?= $horainicio ?> a <?= $horafin ?> </div>
@@ -168,17 +168,17 @@ if (!defined('MECEXEC')) {
                                 esc_html($location['name']);
                               } ?>
                         </div>
-                    <?php 
+                    <?php
                         /** @var MEC_main $this */
-                        /** @var stdClass $event */                    
+                        /** @var stdClass $event */
                         $zonaHoraria = 'America/Guayaquil';
                         $fechaInicioUTC = new DateTime($start_time, new DateTimeZone($zonaHoraria));
                         $fechaInicioUTC->setTimeZone(new DateTimeZone('UTC'));
                         $fechaFinUTC = new DateTime($end_time, new DateTimeZone($zonaHoraria));
-                        $fechaFinUTC->setTimeZone(new DateTimeZone('UTC'));                    
+                        $fechaFinUTC->setTimeZone(new DateTimeZone('UTC'));
                         $formatoFecha = 'Ymd\THis\Z';
                         $fechaInicioStr = $fechaInicioUTC->format($formatoFecha);
-                        $fechaFinStr = $fechaFinUTC->format($formatoFecha);                    
+                        $fechaFinStr = $fechaFinUTC->format($formatoFecha);
                         $baseURL = 'https://calendar.google.com/calendar/render';
                         $parametros = [
                             'action' => 'TEMPLATE',
@@ -202,15 +202,13 @@ if (!defined('MECEXEC')) {
                         <div class="btn-agenda-evento" data-ref="<?= $event->ID?>">Agregar a calendario</div>
                         <?php if(isset($settings['sn']['googlecal'])){?>
                         <div class="btn-cal-google-<?= $event->ID?> ocultar-grid">
-                            <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" 
-                               href="<?= $url1; ?>" target="_blank" rel="noopener">Google</a>
+                            <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?= $url1; ?>" target="_blank" rel="noopener">Google</a>
                         </div>
                         <?php }?>
                         <?php if(isset($settings['sn']['ical'])){ ?>
                         <div class="btn-cal-ios-<?= $event->ID?> ocultar-grid">
-                                    <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" 
-                                    href="<?= $url2 ?>">iCal / Outlook export</a>
-                                </div>
+                            <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?= $url2 ?>">iCal / Outlook export</a>
+                        </div>
                         <?php } ?>
                         <div class="btn-ver-mas">
                           <?= MEC_kses::element($this->display_link($event,'Conoce más')); ?>
