@@ -317,11 +317,11 @@ $banner_module = $this->can_display_banner_module($event);
 						$link = $row['facebook'];
 						$cargo = $row['job_title'];					
 					?>
-					<div class="speaker_opcion" style="background-image: url(<?= $fondo?>);">
+					<div class="speaker_opcion" style="background-image: url(<?=$fondo?>);">
 						<div class="hover_item">
 							<p><?= $nombre ?></p>
 							<p><?= $cargo ?></p>						
-							<a href="<?= $link?>" target="_blank">
+							<a href="<?=$link?>" target="_blank" rel="noopener">
 								<span class="icono-instagram"></span>
 							</a>						
 						</div>	
@@ -334,8 +334,8 @@ $banner_module = $this->can_display_banner_module($event);
 				<div class="mec-single-event-description mec-events-content">
 					<?php the_content(); ?>
 				</div>
-                <?= MEC_kses::full($this->display_trailer_url($event)); ?>
-                <?= MEC_kses::element($this->display_disclaimer($event)); ?>
+                <?=MEC_kses::full($this->display_trailer_url($event)); ?>
+                <?=MEC_kses::element($this->display_disclaimer($event)); ?>
 			</div>
 			<?php do_action('mec_single_after_content', $event); ?>			
 			<?php $this->display_data_fields($event); ?>			
@@ -414,7 +414,7 @@ $banner_module = $this->can_display_banner_module($event);
 			<?php } ?>
 			<!-- Tags -->
 			<div class="mec-events-meta-group mec-events-meta-group-tags">
-                <?= get_the_term_list(get_the_ID(), apply_filters('mec_taxonomy_tag', ''), esc_html__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
+                <?=get_the_term_list(get_the_ID(), apply_filters('mec_taxonomy_tag', ''), esc_html__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
 			</div>
 		</div>		
 			<div class="col-md-4">
