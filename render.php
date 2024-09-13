@@ -13,8 +13,7 @@ if (!defined('MECEXEC')) {
 ?>
 <div class="mec-wrap <?= esc_attr($event_colorskin); ?>">
 	<div class="mec-event-list-<?= esc_attr($this->style); ?>">
-		<?php 
-        foreach($this->events as $date=>$events){?>
+		<?php   foreach($this->events as $date=>$events){?>
             <?php $month_id = date('Ym', strtotime($date)); 
                 if($this->month_divider and $month_id != $current_month_divider){ 
                     $current_month_divider = $month_id; ?>
