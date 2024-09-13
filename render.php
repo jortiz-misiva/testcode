@@ -93,9 +93,9 @@ if (!defined('MECEXEC')) {
                             <?php if(isset($event->date['start']['timestamp']) && current_user_can(current_user_can('administrator') ? 'manage_options' : 'mec_bookings') && $total_attendees = $this->main->get_total_attendees_by_event_occurrence($event->data->ID, $event->date['start']['timestamp'])){ ?>
                                 <a href="<?= trim($this->main->URL('admin'), '/ ').'/?mec-dl-bookings=1&event_id='.$event->data->ID.'&occurrence='.$event->date['start']['timestamp']; ?>"><?= esc_html__('Download Attendees', 'modern-events-calendar-lite'); ?> (<?= esc_html($total_attendees); ?>)</a>
                             <?php } ?>
-                        </div>  
+                        </div>
                 <?php }else{?>
-                    <div class="mec-event-image"><?= MEC_kses::element($this->display_link($event, $event->data->thumbnails['full'])); ?></div>                        
+                    <div class="mec-event-image"><?= MEC_kses::element($this->display_link($event, $event->data->thumbnails['full'])); ?></div>
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days'){?>
                             <div class="mec-event-date mec-color"><?= $this->icons->display('calendar'); ?> <?= esc_html($this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['start']['date']))); ?></div>
                         <?php }else{ ?>
@@ -106,7 +106,7 @@ if (!defined('MECEXEC')) {
                                     <?= MEC_kses::element($this->main->display_time($start_time, $end_time)); ?>
                                 <?php } ?></div>
                         <?php } ?>
-                        <?= MEC_kses::element($this->get_label_captions($event)); 
+                        <?= MEC_kses::element($this->get_label_captions($event));
                         $title = $event->data->title;
                         $description = $event->data->content;
                         $start_date = $event->data->meta['mec_start_date'];
@@ -114,32 +114,28 @@ if (!defined('MECEXEC')) {
                         if ($hor_start_date < 10){
                             $hor_start_date = '0'.$hor_start_date;
                         }
-
                         $min_start_date = (int)$event->data->meta['mec_start_time_minutes'];
                         if ($min_start_date < 10){
                             $min_start_date = '0'.$min_start_date;
-                        }
-                                        
+                        }                                        
                         $end_date = $event->data->meta['mec_end_date'];
                         $hor_end_date = (int)$event->data->meta['mec_end_time_hour'];
                         if ($hor_end_date < 10){
                             $hor_end_date = '0'.$hor_end_date;
                         }
-
                         $min_end_date = (int)$event->data->meta['mec_end_time_minutes'];
                         if ($min_end_date < 10){
                             $min_end_date = '0'.$min_end_date;
-                        }                  
-
+                        }
                         $start_time = $start_date.' '.$hor_start_date.':'.$min_start_date;
-                        $end_time = $end_date.' '.$hor_end_date.':'.$min_end_date;                   
-                        ?>                  
+                        $end_time = $end_date.' '.$hor_end_date.':'.$min_end_date;
+                        ?>
                         <?php if ($this->localtime){ ?>
                             <?= MEC_kses::full($this->main->module('local-time.type2', array('event' => $event))); ?>
                         <?php } ?>
                         <h4 class="mec-event-title">
                             <?= MEC_kses::element($this->display_link($event)); ?>
-                            <?= MEC_kses::embed($this->display_custom_data($event)); ?>
+                            <?= MEC_kses::embed($this->display_custom_data($event));?>
                             <?= MEC_kses::element($this->main->get_flags($event), $event_color, $this->main->get_normal_labels($event, $display_label), $this->main->display_cancellation_reason($event, $reason_for_cancellation)); ?>
                             <?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                         </h4>
@@ -155,14 +151,14 @@ if (!defined('MECEXEC')) {
                         <?= MEC_kses::element($this->display_cost($event)); ?>
                         <?php do_action('mec_list_classic_after_location', $event, $this->skin_options); ?>
                         <?= MEC_kses::form($this->booking_button($event)); ?>
-                        <?php 
-                            $fechaOriginal = $event->date['start']['date'];				
+                        <?php
+                            $fechaOriginal = $event->date['start']['date'];
                             $fechaObjeto = date_create_from_format('Y-m-d', $fechaOriginal);
-                            setlocale(LC_TIME, 'es_ES.UTF-8');				
+                            setlocale(LC_TIME, 'es_ES.UTF-8');
                             $fechaFormateada = strftime('%d de %B del %Y', $fechaObjeto->getTimestamp());
                             $timestamp = $event->date['start']['timestamp'];
-                            $horainicio = date('H\hi', $timestamp); 
-                            $timestamp = $event->date['end']['timestamp'];					
+                            $horainicio = date('H\hi', $timestamp);
+                            $timestamp = $event->date['end']['timestamp'];
                             $horafin = date('H\hi', $timestamp); 
                             ?>
                         <div class="btn-fecha"><?= $fechaFormateada; ?></div>
