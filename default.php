@@ -8,22 +8,29 @@ use MEC\SingleBuilder\Widgets\EventOrganizers\EventOrganizers;
 /** @var array $occurrence_full */
 /** @var string $occurrence_end_date */
 /** @var array $occurrence_end_full */
-
 wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
 
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
-if(!is_array($booking_options)) $booking_options = [];
+if(!is_array($booking_options)){
+	$booking_options = [];
+} 
 
 // Compatibility with Rank Math
 $rank_math_options = '';
 include_once ABSPATH . 'wp-admin/includes/plugin.php';
-if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')) $rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
+if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')){
+	$rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
+}
+ 
 
 $bookings_limit_for_users = $booking_options['bookings_limit_for_users'] ?? 0;
 
 $more_info = (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') ? $event->data->meta['mec_more_info'] : '';
-if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $more_info = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info);
+if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) {
+	$more_info = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info);
+}
+
 
 $more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_target', $event->data->meta['mec_more_info_target'] ?? '');
 if(!trim($more_info_target) && isset($settings['fes_event_link_target']) && trim($settings['fes_event_link_target'])) $more_info_target = $settings['fes_event_link_target'];
@@ -539,3 +546,5 @@ jQuery(window).on('load', function()
     });
 });
 </script>
+
+

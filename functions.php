@@ -1,16 +1,13 @@
 <?php
-
 if ( !defined( 'ABSPATH' ) ) {	
 	//throw new Exception('Acceso directo no permitido.');
 	throw new AccesoDirectoNoPermitidoException('Acceso directo no permitido.');
 }
-
 class AccesoDirectoNoPermitidoException extends Exception {
     public function __construct($message = '', $code = 0, Throwable $previous = null) {
         parent::__construct($message, $code, $previous);
     }
 }
-
 define( 'HELLO_ELEMENTOR_VERSION', '3.0.1' );
 
 if ( ! isset( $content_width ) ) {
