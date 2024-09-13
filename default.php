@@ -10,36 +10,26 @@ use MEC\SingleBuilder\Widgets\EventOrganizers\EventOrganizers;
 /** @var array $occurrence_end_full */
 wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
-
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
 if(!is_array($booking_options)){
 	$booking_options = [];
-} 
-
+}
 // Compatibility with Rank Math
 $rank_math_options = '';
 include_once ABSPATH . 'wp-admin/includes/plugin.php';
 if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')){
 	$rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
 }
- 
-
 $bookings_limit_for_users = $booking_options['bookings_limit_for_users'] ?? 0;
-
 $more_info = (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') ? $event->data->meta['mec_more_info'] : '';
 if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) {
 	$more_info = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info);
 }
-
-
 $more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_target', $event->data->meta['mec_more_info_target'] ?? '');
 if(!trim($more_info_target) && isset($settings['fes_event_link_target']) && trim($settings['fes_event_link_target'])){
 	$more_info_target = $settings['fes_event_link_target'];
 }
-
-
 $more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite')));
-
 // Event Cost
 $cost = $this->main->get_event_cost($event);
 $location_id = $this->main->get_master_location_id($event);
@@ -51,21 +41,20 @@ if($sticky_sidebar == 1){
 	$sticky_sidebar = 'mec-sticky';
 }
 // Banner Image
-$banner_module = $this->can_display_banner_module($event);
-?>
+$banner_module = $this->can_display_banner_module($event);?>
 <div class="mec-wrap <?= esc_attr($event_colorskin); ?> clearfix <?= esc_attr($this->html_class); ?>" id="mec_skin_<?= esc_attr($this->uniqueid); ?>">
     <?php if (isset($banner_module)) {?>
 		<?= MEC_kses::element($this->display_banner_module($event, $occurrence_full, $occurrence_end_full)); ?>
-	<?php } ?>	
+	<?php } ?>
 	<?php do_action('mec_top_single_event', get_the_ID()); ?>
-	<article class="row mec-single-event <?= esc_attr($sticky_sidebar); ?>">		
+	<article class="row mec-single-event <?= esc_attr($sticky_sidebar); ?>">
 		<?php
 		$breadcrumbs_settings = $settings['breadcrumbs'] ?? '';
         if($breadcrumbs_settings == '1'){ ?>
 			<div class="mec-breadcrumbs">
 				<?php $this->display_breadcrumb_widget(get_the_ID()); ?>
 			</div>
-		<?php } ?>		
+		<?php } ?>
 		<style>
 			.contenedor_evento_abierto{
 				margin: 0 auto !important; float: none !important;
@@ -293,9 +282,8 @@ $banner_module = $this->can_display_banner_module($event);
 			</div>
 				<div class="col-md-4 bloque_kit">	
 				<?php 
-				if ( get_field('field_662a9f87a45ba' ) )
-				{
-					$lista_kit = get_field('field_662a9f87a45ba');					
+				if ( get_field('field_662a9f87a45ba' )){
+					$lista_kit = get_field('field_662a9f87a45ba');
 					$lista = explode("\n", $lista_kit);?>
 					<p class="text-label-evento"> Kit para invitadas:</p>
 					<?php
@@ -304,31 +292,29 @@ $banner_module = $this->can_display_banner_module($event);
 					<?php }
 				} ?>
 				</div>
-			</div>	
+			</div>
 			<div class="row bloque_speakers">
-				<?php 				
-				if (isset($event->data->speakers))
-				{
+				<?php
+				if (isset($event->data->speakers)){
 					$speakers=$event->data->speakers;
-					foreach($speakers as $row)
-					{
+					foreach($speakers as $row){
 						$fondo = $row['thumbnail'];
 						$nombre = $row['name'];
 						$link = $row['facebook'];
-						$cargo = $row['job_title'];					
+						$cargo = $row['job_title'];
 					?>
 					<div class="speaker_opcion" style="background-image: url(<?=$fondo?>);">
 						<div class="hover_item">
 							<p><?= $nombre ?></p>
-							<p><?= $cargo ?></p>						
+							<p><?= $cargo ?></p>
 							<a href="<?=$link?>" target="_blank" rel="noopener">
 								<span class="icono-instagram"></span>
-							</a>						
-						</div>	
-					</div>	
-				<?php } 
+							</a>
+						</div>
+					</div>
+				<?php }
 				}?>
-			</div>           
+			</div>
             <?= MEC_kses::full($this->main->display_progress_bar($event)); ?>
 			<div class="mec-event-content">
 				<div class="mec-single-event-description mec-events-content">
@@ -337,8 +323,8 @@ $banner_module = $this->can_display_banner_module($event);
                 <?=MEC_kses::full($this->display_trailer_url($event)); ?>
                 <?=MEC_kses::element($this->display_disclaimer($event)); ?>
 			</div>
-			<?php do_action('mec_single_after_content', $event); ?>			
-			<?php $this->display_data_fields($event); ?>			
+			<?php do_action('mec_single_after_content', $event); ?>
+			<?php $this->display_data_fields($event); ?>
             <?php $this->display_faq($event); ?>
 			<div class="mec-event-info-mobile"></div>
 			<!-- Export Module -->
@@ -349,38 +335,36 @@ $banner_module = $this->can_display_banner_module($event);
                 <?= MEC_kses::full($this->main->module('countdown.details', array('event' => $this->events, 'icons' => $this->icons))); ?>
             </div>
 			<?php } ?>
-
 			<!-- Hourly Schedule -->
 			<?php $this->display_hourly_schedules_widget($event); ?>
 			<?php do_action('mec_before_booking_form', get_the_ID()); ?>
 			<!-- Booking Module -->
 			<?php if (isset($event->date) && !empty($event->date)){
-			   if($this->main->is_sold($event) and count($event->dates) <= 1){?>
+			   		if($this->main->is_sold($event) and count($event->dates) <= 1){?>
 				  <?php
-				  $event_id        = $event->ID;
-				  $dates = (isset($event->dates) ? $event->dates : array($event->date));
-				  $occurrence_time = ($dates[0]['start']['timestamp'] ?? strtotime($dates[0]['start']['date']));
-				  $tickets         = get_post_meta( $event_id, 'mec_tickets', true );
-				  $book         = $this->getBook();
-				  $availability = $book->get_tickets_availability( $event_id, $occurrence_time );
+				  	$event_id        = $event->ID;
+				  	$dates = (isset($event->dates) ? $event->dates : array($event->date));
+				  	$occurrence_time = ($dates[0]['start']['timestamp'] ?? strtotime($dates[0]['start']['date']));
+				  	$tickets         = get_post_meta( $event_id, 'mec_tickets', true );
+				  	$book         = $this->getBook();
+				  	$availability = $book->get_tickets_availability( $event_id, $occurrence_time );
+				  	$sales_end                   = 0;
+                  	$ticket_limit                = -1;
+				  	$ticket_sales_ended_messages = [];
+				  	$stop_selling                = '';
+				  	foreach ( $tickets as $ticket_id => $ticket ){
+						$ticket_limit = $availability[$ticket_id] ?? -1;
+						$ticket_name  = isset( $ticket['name'] ) ? '<strong>' . esc_html($ticket['name']) . '</strong>' : '';
+						$key          = 'stop_selling_' . $ticket_id;
+						if ( !isset( $availability[ $key ] ) ) {
+							continue;
+						}
 
-				  $sales_end                   = 0;
-                  $ticket_limit                = -1;
-				  $ticket_sales_ended_messages = [];
-				  $stop_selling                = '';
-				  foreach ( $tickets as $ticket_id => $ticket ) {
-					 $ticket_limit = $availability[$ticket_id] ?? -1;
-					 $ticket_name  = isset( $ticket['name'] ) ? '<strong>' . esc_html($ticket['name']) . '</strong>' : '';
-					 $key          = 'stop_selling_' . $ticket_id;
-					 if ( !isset( $availability[ $key ] ) ) {
-						continue;
-					 }
-
-					 if ( true === $availability[ $key ] ) {
-						$sales_end++;
-						$ticket_sales_ended_messages[ $ticket_id ] = sprint( esc_html__( 'The %s ticket sales has ended!', 'modern-events-calendar-lite'), $ticket_name );
-					 }
-				  }
+						if ( true === $availability[ $key ] ){
+							$sales_end++;
+							$ticket_sales_ended_messages[ $ticket_id ] = sprint( esc_html__( 'The %s ticket sales has ended!', 'modern-events-calendar-lite'), $ticket_name );
+						}
+					}
 
 				  $tickets_sales_end = false;
 				  if(count($tickets) === $sales_end){
@@ -394,12 +378,12 @@ $banner_module = $this->can_display_banner_module($event);
 						</div>
 					 <?php
 					 }
-				 }else{ ?>
-					 <div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="mec-sold-tickets warning-msg">
-					 	<?php esc_html_e( 'Sold out!', 'modern-events-calendar-lite');do_action( 'mec_booking_sold_out', $event, null, null, array( $event->date ) ); ?> 
-					 </div>
-				<?php }
-				}elseif($this->main->can_show_booking_module($event)){?>
+					}else{ ?>
+						<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="mec-sold-tickets warning-msg">
+							<?php esc_html_e( 'Sold out!', 'modern-events-calendar-lite');do_action( 'mec_booking_sold_out', $event, null, null, array( $event->date ) ); ?> 
+						</div>
+					<?php }
+					}elseif($this->main->can_show_booking_module($event)){?>
 				<?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
 				<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="<?= esc_attr($data_lity_class); ?> mec-events-meta-group mec-events-meta-group-booking">
 					<?php
@@ -411,7 +395,8 @@ $banner_module = $this->can_display_banner_module($event);
 						<?= MEC_kses::full($this->main->module('booking.default', array('event' => $this->events, 'icons' => $this->icons)));
 					}?>
 				</div>
-			<?php } ?>
+			<?php }
+			} ?>
 			<!-- Tags -->
 			<div class="mec-events-meta-group mec-events-meta-group-tags">
                 <?=get_the_term_list(get_the_ID(), apply_filters('mec_taxonomy_tag', ''), esc_html__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
