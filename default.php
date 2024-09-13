@@ -80,17 +80,15 @@ $banner_module = $this->can_display_banner_module($event);?>
 				}
 
 				.bloque_descripcion{margin-top: 80px;}
-
 				.lista-descripcion{font-size: 1rem !important;line-height: 1.5 !important;color: #000000 !important;
 				}
 
 				.lista_hora{font-weight: 800;margin-right: 8px;}
-
 				.opcion{
 					padding-left: 40px;
 					background-image: url('./../../assets/img/Check.svg');
 					background-repeat: no-repeat;
-					background-position: 5px center;			
+					background-position: 5px center;
 				}
 
 				.bloque_speakers{
@@ -106,34 +104,34 @@ $banner_module = $this->can_display_banner_module($event);?>
 					cursor: pointer;
 					background-repeat: no-repeat;
 					background-size: cover;
-					background-position: center;	
-					margin-right:10px;									
+					background-position: center;
+					margin-right:10px;
 				}
 
 				.hover_item{
 					background-color: rgba(192, 56, 62, 0.8);
 					width: 100%;
-					height: 100%;					
+					height: 100%;
 					opacity: 0;
 					visibility: hidden;
-  					transition: opacity 0.5s, visibility 0.5s;	
-		   		    padding: 15px;						
-				}				
+  					transition: opacity 0.5s, visibility 0.5s;
+		   		    padding: 15px;
+				}
 
 				.hover_item>p{
-					font-size: 16px !important;					
-					margin: 0 !important;	
-					font-weight: 600;	
+					font-size: 16px !important;
+					margin: 0 !important;
+					font-weight: 600;
 					font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 				}
 
 				.speaker_opcion:hover .hover_item {
 					opacity: 1;
-  					visibility: visible;					  
+  					visibility: visible;
 				}
-				.hover_item > a {					
+				.hover_item > a {
 				top: 180px;
-    				position: relative;				
+    				position: relative;
 				}
 
 				.icono-instagram{
@@ -142,20 +140,18 @@ $banner_module = $this->can_display_banner_module($event);?>
 					background-repeat: no-repeat;
 					background-size: cover;
 					background-position: center;
-					background-image: url('./../../assets/img/Instagram_blanco.svg');					
-					float: left;	
-					
+					background-image: url('./../../assets/img/Instagram_blanco.svg');
+					float: left;					
 				}
 
 				.hover_item > p {
-					color:#ffffff !important;					
+					color:#ffffff !important;
 				}
 
 				@media only screen and (max-width: 600px) {
 					.btn-lugar {
 						background-image: url(../../assets/img/Ubicacion.svg);
 					}
-
 					.contenedor_descripcion::after,
 					.bloque_descripcion>.bloque_minuto::after,
 					.bloque_descripcion>.bloque_kit::after{
@@ -167,10 +163,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 							margin: 0 10%;
 					}
 
-					.bloque_descripcion {
-						margin-top: 40px;
-						margin-bottom: 0px;
-					}
+					.bloque_descripcion {margin-top: 40px;margin-bottom: 0px;}
 
 					.bloque_descripcion > .bloque_minuto{
 						margin-left: 0;
@@ -183,7 +176,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 					}
 
 					.bloque_descripcion>.bloque_kit>p{
-						padding-left: 35px;						
+						padding-left: 35px;
 					}
 
 					.bloque_descripcion>.bloque_kit>p.text-label-evento{
@@ -191,28 +184,28 @@ $banner_module = $this->can_display_banner_module($event);?>
 					}
 
 					.bloque_descripcion>.bloque_minuto::after,
-					.bloque_descripcion>.bloque_kit::after{	
-						margin-top: 40px;					
-						margin-bottom: 40px;						
+					.bloque_descripcion>.bloque_kit::after{
+						margin-top: 40px;
+						margin-bottom: 40px;
 					}
 
-					.bloque_speakers {	
+					.bloque_speakers {
 						margin-top: 0px;
 						flex-direction: column;
 					}
 					.speaker_opcion {
 						width: 250px;
-						height: 250px;						
+						height: 250px;
 						margin-right: 0;
 						float: left;
 						margin-bottom: 25px;
 					}
 
-					.hover_item {	
+					.hover_item {
 						opacity: 1;
 						visibility: visible;
-						transition: opacity 0.5s, visibility 0.5s;	
-						background-color: rgba(192, 56, 62, 0.5);					
+						transition: opacity 0.5s, visibility 0.5s;
+						background-color: rgba(192, 56, 62, 0.5);
 					}
 
 					.hover_item > a {
@@ -220,16 +213,16 @@ $banner_module = $this->can_display_banner_module($event);?>
     					position: relative;
 					}
 
-					.btn-fecha, .btn-hora, .btn-lugar {											
+					.btn-fecha, .btn-hora, .btn-lugar {
 						padding: 15px;
-    					padding-left: 40px;					
+    					padding-left: 40px;
 					}
 
-					.btn-fecha {	
+					.btn-fecha {
 						background-position: 0 !important;
-					}					
+					}
 			}
-		</style>		
+		</style>
 		<div class="col-md-8 contenedor_evento_abierto">
 			<!--BLOQUE MISIVA -->
 			<div class="row contenedor_descripcion">
@@ -237,10 +230,10 @@ $banner_module = $this->can_display_banner_module($event);?>
 					<?php if(isset($banner_module)){?>
 						<div class="mec-event-image">
 							<?= MEC_kses::element($this->display_link($event, $event->data->thumbnails['full'])); ?>
-						</div>            
+						</div>
 					<?php } ?>
-				</div>				
-				<?php 			
+				</div>
+				<?php
 				$fechaOriginal = $event->date['start']['date'];				
 				$fechaObjeto = date_create_from_format('Y-m-d', $fechaOriginal);
 				setlocale(LC_TIME, 'es_ES.UTF-8');				
