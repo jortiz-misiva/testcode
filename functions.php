@@ -145,9 +145,8 @@ if ( ! function_exists( 'hello_elementor_register_elementor_locations' ) ) {
 }
 add_action( 'elementor/theme/register_locations', 'hello_elementor_register_elementor_locations' );
 
-if ( ! function_exists( 'hello_elementor_add_description_meta_tag' ) ) {
-	
-	function hello_elementor_add_description_meta_tag() {
+if ( ! function_exists( 'hello_elementor_add_description_meta_tag' ) ) {	
+function hello_elementor_add_description_meta_tag() {
 		if ( ! apply_filters( 'hello_elementor_description_meta_tag', true ) ) {
 			return;
 		}
@@ -157,26 +156,24 @@ if ( ! function_exists( 'hello_elementor_add_description_meta_tag' ) ) {
 		}
 
 		$post = get_queried_object();
-		if ( empty( $post->post_excerpt ) ) {
+		if (empty($post->post_excerpt)){
 			return;
 		} 
-
-	
-
 	}
 }
-add_action( 'wp_head', 'hello_elementor_add_description_meta_tag' );
+add_action('wp_head','hello_elementor_add_description_meta_tag');
 
 // Admin notice
-if ( is_admin() ) {
-	require get_template_directory() . '/includes/admin-functions.php';
+if ( is_admin() ){
+	require get_template_directory() . '/includes/admin-functions.php';	
 }
 
+
 // Settings page
-use get_template_directory() . '/includes/settings-functions.php';
+require get_template_directory().'/includes/settings-functions.php';
 
 // Header & footer styling option, inside Elementor
-use get_template_directory() . '/includes/elementor-functions.php';
+require get_template_directory() . '/includes/elementor-functions.php';
 
 if ( ! function_exists( 'hello_elementor_customizer' ) ) {
 	// Customizer controls
