@@ -51,7 +51,7 @@ if((isset($settings['search_bar_category']) && $settings['search_bar_category'] 
     }
     if(isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1'){
         $output .= $this->show_taxonomy('mec_label', 'pin');
-    }    
+    }
     $output .= '</div>';
 }
 $output .= '<input type="text" name="fecha" id="datepicker" autocomplete="off" style="display:none;">

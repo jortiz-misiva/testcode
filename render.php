@@ -1,5 +1,5 @@
 <?php
-if (!defined('MECEXEC')) {
+if (!defined('MECEXEC')){
     wp_die('Acceso directo no permitido.');
 }
 /** @var MEC_skin_list $this */
@@ -13,12 +13,16 @@ if (!defined('MECEXEC')) {
 ?>
 <div class="mec-wrap <?= esc_attr($event_colorskin); ?>">
 	<div class="mec-event-list-<?= esc_attr($this->style); ?>">
-		<?php   foreach($this->events as $date=>$events){   ?>
+		<?php
+            foreach($this->events as $date=>$events){?>
             <?php
                 $month_id = date('Ym', strtotime($date));
                 if($this->month_divider && $month_id != $current_month_divider){
-                    $current_month_divider = $month_id; ?>
-                <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>"><span><?= esc_html($this->main->date_i18n('F Y', strtotime($date))); ?></span><i class="mec-sl-arrow-down"></i></div>
+                    $current_month_divider = $month_id;?>
+                <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>">
+                    <span><?= esc_html($this->main->date_i18n('F Y', strtotime($date))); ?></span>
+                    <i class="mec-sl-arrow-down"></i>
+                </div>
             <?php   }
              foreach($events as $event){
                     $map_events[] = $event;
@@ -35,7 +39,8 @@ if (!defined('MECEXEC')) {
                     do_action('mec_schema', $event);
             ?>
             <article class="<?= (isset($event->data->meta['event_past']) && trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article <?= esc_attr($custom_data_class); ?> mec-clear <?= esc_attr($this->get_event_classes($event)); ?> mec-divider-toggle mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>" itemscope>
-            <?php   $elemStyle = $this->style;
+            <?php
+                $elemStyle = $this->style;
                 if ($elemStyle == 'admin'){?>
                     <div class="col-md-2 col-sm-2">
                             <?php if($this->main->is_multipleday_occurrence($event, true)): ?>
