@@ -1,16 +1,15 @@
 <?php
-/** no direct access **/
 if (!defined('MECEXEC')) {
     wp_die('Acceso directo no permitido.');
 }
 /** @var MEC_skin_list $this */
-$styling = $this->main->get_styling();
-$settings = $this->main->get_settings();
-$current_month_divider = isset($_REQUEST['current_month_divider']) ? sanitize_text_field($_REQUEST['current_month_divider']) : 0;
-$display_label = $this->skin_options['display_label'] ?? false;
-$reason_for_cancellation = $this->skin_options['reason_for_cancellation'] ?? false;
-$event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
-$map_events = [];
+    $styling = $this->main->get_styling();
+    $settings = $this->main->get_settings();
+    $current_month_divider = isset($_REQUEST['current_month_divider']) ? sanitize_text_field($_REQUEST['current_month_divider']) : 0;
+    $display_label = $this->skin_options['display_label'] ?? false;
+    $reason_for_cancellation = $this->skin_options['reason_for_cancellation'] ?? false;
+    $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
+    $map_events = [];
 ?>
 <div class="mec-wrap <?= esc_attr($event_colorskin); ?>">
 	<div class="mec-event-list-<?= esc_attr($this->style); ?>">
