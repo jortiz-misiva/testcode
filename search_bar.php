@@ -45,12 +45,28 @@ else
 if((isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') || (isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1') || (isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1') || (isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1') || (isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1') || (isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1'))
 {
     $output .= '<div class="mec-dropdown-wrap">';
-    if(isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') $output .= $this->show_taxonomy('mec_category', 'folder');
-    if(isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1') $output .= $this->show_taxonomy('mec_location', 'location-pin');
-    if(isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1') $output .= $this->show_taxonomy('mec_organizer', 'user');
-    if(isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1') $output .= $this->show_taxonomy('mec_speaker', 'microphone');
-    if(isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1') $output .= $this->show_taxonomy(apply_filters('mec_taxonomy_tag', ''), 'tag');
-    if(isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1') $output .= $this->show_taxonomy('mec_label', 'pin');
+    if(isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') {
+        $output .= $this->show_taxonomy('mec_category', 'folder');
+    }
+    
+    if(isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1'){
+        $output .= $this->show_taxonomy('mec_location', 'location-pin');
+    }
+     
+    if(isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1'){
+        $output .= $this->show_taxonomy('mec_organizer', 'user');
+    } 
+    if(isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1'){
+        $output .= $this->show_taxonomy('mec_speaker', 'microphone');
+    }
+     
+    if(isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1'){
+        $output .= $this->show_taxonomy(apply_filters('mec_taxonomy_tag', ''), 'tag');
+    } 
+    if(isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1'){
+        $output .= $this->show_taxonomy('mec_label', 'pin');
+    } 
+    
     $output .= '</div>';
 }
 
