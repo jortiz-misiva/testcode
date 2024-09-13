@@ -117,7 +117,7 @@ if (!defined('MECEXEC')) {
                         $min_start_date = (int)$event->data->meta['mec_start_time_minutes'];
                         if ($min_start_date < 10){
                             $min_start_date = '0'.$min_start_date;
-                        }                                        
+                        }
                         $end_date = $event->data->meta['mec_end_date'];
                         $hor_end_date = (int)$event->data->meta['mec_end_time_hour'];
                         if ($hor_end_date < 10){
@@ -164,9 +164,9 @@ if (!defined('MECEXEC')) {
                         <div class="btn-fecha"><?= $fechaFormateada; ?></div>
                         <div class="btn-hora"> De <?= $horainicio ?> a <?= $horafin ?> </div>
                         <div class="btn-lugar">
-                            <?php if(isset($location['name'])){ ?>
-                                <?= esc_html($location['name']);
-                                } ?>
+                            <?php if(isset($location['name'])){
+                                esc_html($location['name']);
+                              } ?>
                         </div>
                     <?php 
                         /** @var MEC_main $this */
@@ -185,13 +185,13 @@ if (!defined('MECEXEC')) {
                             'text' => urlencode($title),
                             'details' => urlencode($description),
                             'dates' => $fechaInicioStr . '/' . $fechaFinStr
-                        ];                
-                        $url1 = $baseURL . '?' . http_build_query($parametros);                    
+                        ];
+                        $url1 = $baseURL.'?'.http_build_query($parametros);
                         /*BLOQUE PARA IOS*/
                         require_once 'wp-load.php';
                         $idEvento = $event->ID;
                         $fechaOcurrencia = $event->data->meta['mec_start_date'];
-                        $baseURL = site_url('/2024/depratieventos/');                                        
+                        $baseURL = site_url('/2024/depratieventos/');
                         $parametros2 = [
                             'method' => 'ical',
                             'id' => $idEvento,
@@ -199,9 +199,9 @@ if (!defined('MECEXEC')) {
                         ];
                         $url2 = $baseURL.'?'.http_build_query($parametros2);
                     ?>
-                        <div class="btn-agenda-evento" data-ref="<?= $event->ID?>">Agregar a calendario</div>                    
+                        <div class="btn-agenda-evento" data-ref="<?= $event->ID?>">Agregar a calendario</div>
                         <?php if(isset($settings['sn']['googlecal'])){?>
-                        <div class="btn-cal-google-<?= $event->ID?> ocultar-grid"> 
+                        <div class="btn-cal-google-<?= $event->ID?> ocultar-grid">
                             <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" 
                                href="<?= $url1; ?>" target="_blank" rel="noopener">Google</a>
                         </div>
@@ -213,9 +213,9 @@ if (!defined('MECEXEC')) {
                                 </div>
                         <?php } ?>
                         <div class="btn-ver-mas">
-                          <?= MEC_kses::element($this->display_link($event,'Conoce más')); ?>    
-                        </div>   
-                <?php } ?>            
+                          <?= MEC_kses::element($this->display_link($event,'Conoce más')); ?>
+                        </div>
+                <?php } ?>
             </article>
 		<?php }
         } ?>
