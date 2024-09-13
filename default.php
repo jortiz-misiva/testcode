@@ -141,7 +141,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 					background-size: cover;
 					background-position: center;
 					background-image: url('./../../assets/img/Instagram_blanco.svg');
-					float: left;					
+					float: left;
 				}
 
 				.hover_item > p {
@@ -380,7 +380,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 				<?php
 				$data_lity_class = '';
 				if(isset($settings['single_booking_style']) && $settings['single_booking_style'] == 'modal' ){
-					$data_lity_class = 'lity-hide '; 
+					$data_lity_class = 'lity-hide ';
 				}?>
 				<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="<?= esc_attr($data_lity_class); ?> mec-events-meta-group mec-events-meta-group-booking">
 					<?php
