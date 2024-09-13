@@ -31,10 +31,10 @@ if (!defined('MECEXEC')) {
                     $event_color = $this->get_event_color_dot($event);
                     $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
                     $mec_data = $this->display_custom_data($event);
-                    $custom_data_class = !empty($mec_data) ? 'mec-custom-data' : '';                   
+                    $custom_data_class = !empty($mec_data) ? 'mec-custom-data' : '';
                     do_action('mec_schema', $event);
             ?>
-            <article class="<?= (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article <?= esc_attr($custom_data_class); ?> mec-clear <?= esc_attr($this->get_event_classes($event)); ?> mec-divider-toggle mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>" itemscope>
+            <article class="<?= (isset($event->data->meta['event_past']) && trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article <?= esc_attr($custom_data_class); ?> mec-clear <?= esc_attr($this->get_event_classes($event)); ?> mec-divider-toggle mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>" itemscope>
             <?php   $elemStyle = $this->style;
                 if ($elemStyle == 'admin'){?>
                     <div class="col-md-2 col-sm-2">
@@ -81,7 +81,7 @@ if (!defined('MECEXEC')) {
                                 <div class="mec-event-loc-place">
                                     <?=(isset($location['name']) ? esc_html($location['name']) : '') . (isset($location['address']) && !empty($location['address']) ? ' | '.esc_html($location['address']) : ''); ?>
                                 </div>
-                                <?php if($this->include_events_times and trim($start_time)){?>
+                                <?php if($this->include_events_times && trim($start_time)){?>
                                     <?=esc_html(MEC_kses::element($this->main->display_time($start_time, $end_time)));?> 
                                 <?php } ?>
                                 <?= esc_html(MEC_kses::element($this->display_categories($event))); ?>
@@ -101,7 +101,7 @@ if (!defined('MECEXEC')) {
                         <?php }else{ ?>
                             <div class="mec-event-date mec-color"><?= $this->icons->display('calendar'); ?> <?= MEC_kses::element($this->main->dateify($event, $this->date_format_classic_1)); ?></div>
                             <div class="mec-event-time mec-color">
-                                <?php if($this->include_events_times and trim($start_time)) { ?>
+                                <?php if($this->include_events_times && trim($start_time)) { ?>
                                     <?= $this->icons->display('clock'); ?>
                                     <?= MEC_kses::element($this->main->display_time($start_time, $end_time)); ?>
                                 <?php } ?></div>
