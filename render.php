@@ -19,12 +19,12 @@ if (!defined('MECEXEC')){
                 $month_id = date('Ym', strtotime($date));
                 if($this->month_divider && $month_id != $current_month_divider){
                     $current_month_divider = $month_id;?>
-                <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>">
+                    <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?= date('Ym', strtotime($date)); ?>-<?= esc_attr($this->id); ?>">
                     <span><?= esc_html($this->main->date_i18n('F Y', strtotime($date))); ?></span>
                     <i class="mec-sl-arrow-down"></i>
                 </div>
             <?php   }
-             foreach($events as $event){
+                foreach($events as $event){
                     $map_events[] = $event;
                     $location_id = $this->main->get_master_location_id($event);
                     $location = ($location_id ? $this->main->get_location_data($location_id) : array());
