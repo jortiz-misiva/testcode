@@ -169,8 +169,9 @@ $map_events = [];
                         <div class="btn-fecha"><?= $fechaFormateada; ?></div>
                         <div class="btn-hora"> De <?= $horainicio ?> a <?= $horafin ?> </div>
                         <div class="btn-lugar">
-                            <?php if(isset($location['name'])) ?>
-                                <?= esc_html($location['name']); ?>
+                            <?php if(isset($location['name'])){ ?>
+                                <?= esc_html($location['name']);
+                                } ?>
                         </div>
                     <?php 
                         /** @var MEC_main $this */
