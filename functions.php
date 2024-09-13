@@ -170,10 +170,10 @@ if ( is_admin() ){
 
 
 // Settings page
-require get_template_directory().'/includes/settings-functions.php';
+use get_template_directory().'/includes/settings-functions.php';
 
 // Header & footer styling option, inside Elementor
-require get_template_directory() . '/includes/elementor-functions.php';
+use get_template_directory() . '/includes/elementor-functions.php';
 
 if ( ! function_exists( 'hello_elementor_customizer' ) ) {
 	// Customizer controls
