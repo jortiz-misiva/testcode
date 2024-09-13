@@ -73,7 +73,7 @@ $map_events = [];
                         <div class="col-md-8 col-sm-8">
                             <?php $soldout = $this->main->get_flags($event); ?>
                             <h4 class="mec-event-title">
-                                <a class="event-link-admin" href="<?= esc_url(get_edit_post_link($event->ID)); ?>" target="_blank">
+                                <a class="event-link-admin" rel="noopener" href="<?= esc_url(get_edit_post_link($event->ID)); ?>" target="_blank">
                                     <?= esc_html($event->data->title) ?>
                                 </a>
                                 <?= esc_html(MEC_kses::element($soldout . $event_color)) ?>
@@ -82,10 +82,12 @@ $map_events = [];
                                 <?= esc_html(MEC_kses::element($this->get_label_captions($event, 'mec-fc-style'))) ?>
                             </h4>
                             <div class="mec-event-detail">
-                                <div class="mec-event-loc-place"><?= (isset($location['name']) ? esc_html($location['name']) : '') . (isset($location['address']) && !empty($location['address']) ? ' | '.esc_html($location['address']) : ''); ?></div>
+                                <div class="mec-event-loc-place">
+                                    <?=(isset($location['name']) ? esc_html($location['name']) : '') . (isset($location['address']) && !empty($location['address']) ? ' | '.esc_html($location['address']) : ''); ?>
+                                </div>
                                 <?php if($this->include_events_times and trim($start_time)){?>
-                                    <?=esc_html(MEC_kses::element($this->main->display_time($start_time, $end_time))); 
-                                    }?>
+                                    <?=esc_html(MEC_kses::element($this->main->display_time($start_time, $end_time)));?> 
+                                <?php } ?>
                                 <?= esc_html(MEC_kses::element($this->display_categories($event))); ?>
                                 <?= esc_html(MEC_kses::element($this->display_organizers($event))); ?>
                                 <?= esc_html(MEC_kses::element($this->display_cost($event))); ?>
