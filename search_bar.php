@@ -7,10 +7,11 @@ if (!defined('MECEXEC')) {
 $settings = $this->main->get_settings();
 
 $modern_type = '';
-if(isset($settings['search_bar_modern_type']) && $settings['search_bar_modern_type'] == '1') $modern_type = 'mec-modern-search-bar ';
+if(isset($settings['search_bar_modern_type']) && $settings['search_bar_modern_type'] == '1') {
+    $modern_type = 'mec-modern-search-bar ';
+}
 
 $output = '<div class="'.esc_attr($modern_type).' mec-wrap mec-search-bar-wrap"><form class="mec-search-form mec-totalcal-box" role="search" method="get" id="searchform" action="'.get_bloginfo('url').'">';
-
 
 if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode'] == '1')
 {
@@ -57,10 +58,8 @@ $output .= '<input type="text" name="fecha" id="datepicker" autocomplete="off" s
 <button type="button" class="mec-icon-calendario" id="calendario"></button>';
 //$output .= '<input class="mec-search-bar-input" id="mec-calendario-input" type="date" value="'.esc_html__('Buscar', 'modern-events-calendar-lite').'" /><input type="hidden" name="post_type" value="mec-events">';
 $output .= '<input class="mec-search-bar-input" id="mec-search-bar-input" type="submit" alt="'.esc_html__('Buscar', 'modern-events-calendar-lite').'" value="'.esc_html__('Buscar', 'modern-events-calendar-lite').'" /><input type="hidden" name="post_type" value="mec-events">';
-
 $output .= '</form></div>';?>
-<?= MEC_kses::form($output);
-?>
+<?= MEC_kses::form($output);?>
 <script>
 jQuery(document).ready(function($) {
     jQuery("#keyword").typeWatch(
