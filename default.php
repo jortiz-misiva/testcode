@@ -21,15 +21,15 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 	$rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
 }
 $bookings_limit_for_users = $booking_options['bookings_limit_for_users'] ?? 0;
-$more_info = (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') ? $event->data->meta['mec_more_info'] : '';
-if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) {
+$more_info = (isset($event->data->meta['mec_more_info']) && trim($event->data->meta['mec_more_info']) && $event->data->meta['mec_more_info'] != 'http://') ? $event->data->meta['mec_more_info'] : '';
+if(isset($event->date) && isset($event->date['start']) && isset($event->date['start']['timestamp'])) {
 	$more_info = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info);
 }
 $more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_target', $event->data->meta['mec_more_info_target'] ?? '');
 if(!trim($more_info_target) && isset($settings['fes_event_link_target']) && trim($settings['fes_event_link_target'])){
 	$more_info_target = $settings['fes_event_link_target'];
 }
-$more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite')));
+$more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) && trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite')));
 // Event Cost
 $cost = $this->main->get_event_cost($event);
 $location_id = $this->main->get_master_location_id($event);
@@ -340,7 +340,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 			<?php do_action('mec_before_booking_form', get_the_ID()); ?>
 			<!-- Booking Module -->
 			<?php if (isset($event->date) && !empty($event->date)){
-			   		if($this->main->is_sold($event) and count($event->dates) <= 1){?>
+			   		if($this->main->is_sold($event) && count($event->dates) <= 1){?>
 				  <?php
 				  	$event_id        = $event->ID;
 				  	$dates = (isset($event->dates) ? $event->dates : array($event->date));
@@ -384,12 +384,12 @@ $banner_module = $this->can_display_banner_module($event);?>
 						</div>
 					<?php }
 					}elseif($this->main->can_show_booking_module($event)){?>
-				<?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
+				<?php $data_lity_class = ''; if(isset($settings['single_booking_style']) && $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
 				<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="<?= esc_attr($data_lity_class); ?> mec-events-meta-group mec-events-meta-group-booking">
 					<?php
-					if(isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ){?>
+					if(isset($settings['booking_user_login']) && $settings['booking_user_login'] == '1' && !is_user_logged_in() ){?>
 						<?= do_shortcode('[MEC_login]');
-					}elseif (!is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ){?>
+					}elseif (!is_user_logged_in() && isset($booking_options['bookings_limit_for_users']) && $booking_options['bookings_limit_for_users'] == '1' ){?>
 						<?= do_shortcode('[MEC_login]');
 					}else {?>
 						<?= MEC_kses::full($this->main->module('booking.default', array('event' => $this->events, 'icons' => $this->icons)));
