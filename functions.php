@@ -1,25 +1,19 @@
 <?php
-if ( !defined( 'ABSPATH' ) ) {	
-	//throw new Exception('Acceso directo no permitido.');
+if ( !defined( 'ABSPATH' ) ) {		
 	throw new AccesoDirectoNoPermitidoException('Acceso directo no permitido.');
 }
 class AccesoDirectoNoPermitidoException extends Exception {
     public function __construct($message = '', $code = 0, Throwable $previous = null) {
         parent::__construct($message, $code, $previous);
+		
     }
 }
 define( 'HELLO_ELEMENTOR_VERSION', '3.0.1' );
-
 if ( ! isset( $content_width ) ) {
-	$content_width = 800; // Pixels.
+	$content_width = 800;
 }
 
-if ( ! function_exists( 'hello_elementor_setup' ) ) {
-	/**
-	 * Set up theme support.
-	 *
-	 * @return void
-	 */
+if ( ! function_exists( 'hello_elementor_setup' ) ) {	
 	function hello_elementor_setup() {
 		if ( is_admin() ) {
 			hello_maybe_update_theme_version_in_db();
@@ -58,30 +52,13 @@ if ( ! function_exists( 'hello_elementor_setup' ) ) {
 					'flex-height' => true,
 					'flex-width'  => true,
 				]
-			);
-
-			/*
-			 * Editor Style.
-			 */
-			add_editor_style( 'classic-editor.css' );
-
-			/*
-			 * Gutenberg wide images.
-			 */
-			add_theme_support( 'align-wide' );
-
-			/*
-			 * WooCommerce.
-			 */
-			if ( apply_filters( 'hello_elementor_add_woocommerce_support', true ) ) {
-				// WooCommerce in general.
-				add_theme_support( 'woocommerce' );
-				// Enabling WooCommerce product gallery features (are off by default since WC 3.0.0).
-				// zoom.
-				add_theme_support( 'wc-product-gallery-zoom' );
-				// lightbox.
-				add_theme_support( 'wc-product-gallery-lightbox' );
-				// swipe.
+			);			
+			add_editor_style( 'classic-editor.css' );			
+			add_theme_support( 'align-wide' );			
+			if ( apply_filters( 'hello_elementor_add_woocommerce_support', true ) ) {				
+				add_theme_support( 'woocommerce' );				
+				add_theme_support( 'wc-product-gallery-zoom' );				
+				add_theme_support( 'wc-product-gallery-lightbox' );				
 				add_theme_support( 'wc-product-gallery-slider' );
 			}
 		}
@@ -168,21 +145,8 @@ if ( ! function_exists( 'hello_elementor_register_elementor_locations' ) ) {
 }
 add_action( 'elementor/theme/register_locations', 'hello_elementor_register_elementor_locations' );
 
-if ( ! function_exists( 'hello_elementor_content_width' ) ) {
-	/**
-	 * Set default content width.
-	 *
-	 * @return void
-	 */	
-}
-//add_action( 'after_setup_theme', 'hello_elementor_content_width', 0 );
-
 if ( ! function_exists( 'hello_elementor_add_description_meta_tag' ) ) {
-	/**
-	 * Add description meta tag with excerpt text.
-	 *
-	 * @return void
-	 */
+	
 	function hello_elementor_add_description_meta_tag() {
 		if ( ! apply_filters( 'hello_elementor_description_meta_tag', true ) ) {
 			return;
@@ -209,10 +173,10 @@ if ( is_admin() ) {
 }
 
 // Settings page
-require get_template_directory() . '/includes/settings-functions.php';
+use get_template_directory() . '/includes/settings-functions.php';
 
 // Header & footer styling option, inside Elementor
-require get_template_directory() . '/includes/elementor-functions.php';
+use get_template_directory() . '/includes/elementor-functions.php';
 
 if ( ! function_exists( 'hello_elementor_customizer' ) ) {
 	// Customizer controls
