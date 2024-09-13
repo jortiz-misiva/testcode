@@ -384,7 +384,12 @@ $banner_module = $this->can_display_banner_module($event);?>
 						</div>
 					<?php }
 					}elseif($this->main->can_show_booking_module($event)){?>
-				<?php $data_lity_class = ''; if(isset($settings['single_booking_style']) && $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
+				<?php
+				$data_lity_class = '';
+				if(isset($settings['single_booking_style']) && $settings['single_booking_style'] == 'modal' ){
+					$data_lity_class = 'lity-hide '; 
+				}
+				?>
 				<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="<?= esc_attr($data_lity_class); ?> mec-events-meta-group mec-events-meta-group-booking">
 					<?php
 					if(isset($settings['booking_user_login']) && $settings['booking_user_login'] == '1' && !is_user_logged_in() ){?>
