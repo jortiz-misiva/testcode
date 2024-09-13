@@ -45,7 +45,7 @@ else
 if((isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') || (isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1') || (isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1') || (isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1') || (isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1') || (isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1'))
 {
     $output .= '<div class="mec-dropdown-wrap">';
-    if(isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') {
+    if(isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1'){
         $output .= $this->show_taxonomy('mec_category', 'folder');
     }
     
