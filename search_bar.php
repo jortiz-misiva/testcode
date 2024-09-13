@@ -8,8 +8,7 @@ if(isset($settings['search_bar_modern_type']) && $settings['search_bar_modern_ty
     $modern_type = 'mec-modern-search-bar ';
 }
 $output = '<div class="'.esc_attr($modern_type).' mec-wrap mec-search-bar-wrap"><form class="mec-search-form mec-totalcal-box" role="search" method="get" id="searchform" action="'.get_bloginfo('url').'">';
-if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode'] == '1')
-{
+if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode'] == '1'){
     $output .= '<div class="mec-ajax-search-result">
         <div class="mec-text-input-search">
             <i class="mec-sl-magnifier"></i>
@@ -18,8 +17,7 @@ if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode']
         <div id="mec-ajax-search-result-wrap"><div class="mec-ajax-search-result-events">'.esc_html__('Search results will show here' , 'modern-events-calendar-lite').'</div></div>
     </div>';
 }else{
-    if(isset($settings['search_bar_text_field']) && $settings['search_bar_text_field'] == '1')
-    {
+    if(isset($settings['search_bar_text_field']) && $settings['search_bar_text_field'] == '1'){
         $output .= '<div class="mec-text-input-search">
             <i class="mec-sl-magnifier"></i>
             <input type="search" value="" id="s" name="s" />
@@ -28,8 +26,7 @@ if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode']
         $output .= '<input type="hidden" value="" name="s" />';
     }
 }
-if((isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') || (isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1') || (isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1') || (isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1') || (isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1') || (isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1'))
-{
+if((isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') || (isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1') || (isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1') || (isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1') || (isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1') || (isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1')){
     $output .= '<div class="mec-dropdown-wrap">';
     if(isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1'){
         $output .= $this->show_taxonomy('mec_category', 'folder');
