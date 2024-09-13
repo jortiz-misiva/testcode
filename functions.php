@@ -303,7 +303,7 @@ function obtener_parametro_get_shortcode() {
 }
 add_shortcode('get_param', 'obtener_parametro_get_shortcode');
 
-function procesar_posts_mec_events() {
+/*function procesar_posts_mec_events() {
     $args = array(
         'post_type'      => 'mec-events',
         'post_status'    => 'publish',
@@ -384,6 +384,157 @@ function procesar_posts_mec_events() {
         echo $html;
     }
     wp_reset_postdata();
+}*/
+
+function procesar_posts_mec_events() {
+    // Obtener filtros de ubicación y fecha desde la URL
+    $filtro_location = isset($_GET['location']) ? $_GET['location'] : null;
+    $filtro_fecha = isset($_GET['fecha']) && $_GET['fecha'] !== '' ? $_GET['fecha'] : null; 
+
+    // Construir argumentos para WP_Query
+    $args = array(
+        'post_type'      => 'mec-events',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_query'     => construir_meta_query($filtro_location, $filtro_fecha),
+    );
+
+    // Realizar consulta de eventos
+    $query = new WP_Query($args);
+    
+    if ($query->have_posts()) {
+        // Iniciar construcción del HTML
+        $html = iniciar_contenedor_html();
+
+        // Procesar cada evento
+        foreach ($query->posts as $post) {
+            $html .= procesar_evento($post);
+        }
+
+        $html .= cerrar_contenedor_html();
+        echo $html;
+    }
+    wp_reset_postdata();
+}
+
+// Función para construir la meta_query
+function construir_meta_query($filtro_location, $filtro_fecha) {
+    $meta_query = array('relation' => 'AND');
+
+    if ($filtro_location !== null) {
+        $meta_query[] = array(
+            'key'     => 'mec_location_id',
+            'value'   => $filtro_location,
+            'compare' => '=',
+        );
+    }
+
+    if ($filtro_fecha !== null) {
+        $meta_query[] = array(
+            'key'     => 'mec_start_date',
+            'value'   => $filtro_fecha,
+            'compare' => '=',
+        );
+    }
+
+    return count($meta_query) > 1 ? $meta_query : array();
+}
+
+// Función para iniciar el contenedor HTML
+function iniciar_contenedor_html() {
+    $html = '<div class="mec-wrap mec-skin-list-container mec-widget" id="mec_skin_575">';
+    $html .= '<div class="mec-skin-list-events-container" id="mec_skin_events_575"></div>';
+    $html .= '<div class="mec-wrap"><div class="mec-event-list-classic">';
+    return $html;
+}
+
+// Función para cerrar el contenedor HTML
+function cerrar_contenedor_html() {
+    return '</div></div></div>';
+}
+
+// Función para procesar cada evento individual
+function procesar_evento($post) {
+    $post_ID = $post->ID;
+    $title = $post->post_title;
+    $thum = obtener_url_thumbnail($post_ID);
+
+    // Obtener información de ubicación y fecha
+    $location_name = obtener_nombre_ubicacion($post_ID);
+    $fecha_inicio = obtener_meta_post_calendario($post_ID, 'mec_start_date');
+    $fecha_inicio_completo = obtener_meta_post_calendario($post_ID, 'mec_start_datetime');
+    $fecha_fin_completo = obtener_meta_post_calendario($post_ID, 'mec_end_datetime');
+
+    // Formatear fecha y hora
+    $fechaFormateada = formatear_fecha($fecha_inicio);
+    $horas = obtener_horas_evento($fecha_inicio_completo, $fecha_fin_completo);
+
+    // Generar URLs para calendarios
+    $urls_calendario = generar_urls_calendario($title, $fecha_inicio_completo, $fecha_fin_completo, $post_ID, $fecha_inicio);
+
+    // Construir HTML del evento
+    return construir_html_evento($post, $thum, $title, $fechaFormateada, $horas, $location_name, $post_ID, $urls_calendario);
+}
+
+// Función para obtener el nombre de la ubicación
+function obtener_nombre_ubicacion($post_ID) {
+    $location_id = obtener_meta_post_calendario($post_ID, 'mec_location_id');
+    $location = get_term($location_id);
+    return isset($location->name) ? esc_html($location->name) : '';
+}
+
+// Función para formatear la fecha
+function formatear_fecha($fecha) {
+    $fechaObjeto = date_create_from_format('Y-m-d', $fecha);
+    setlocale(LC_TIME, 'es_ES.UTF-8');
+    return strftime('%d de %B del %Y', $fechaObjeto->getTimestamp());
+}
+
+// Función para obtener las horas de inicio y fin del evento
+function obtener_horas_evento($inicio, $fin) {
+    return array(
+        'inicio' => date('H:i', strtotime($inicio)),
+        'fin'    => date('H:i', strtotime($fin)),
+    );
+}
+
+// Función para generar URLs de los calendarios
+function generar_urls_calendario($title, $inicio, $fin, $event_id, $fecha_ocurrencia) {
+    $zonaHoraria = 'America/Guayaquil';
+    $formatoFecha = 'Ymd\THis\Z';
+
+    $fechaInicioUTC = (new DateTime($inicio, new DateTimeZone($zonaHoraria)))->setTimeZone(new DateTimeZone('UTC'))->format($formatoFecha);
+    $fechaFinUTC = (new DateTime($fin, new DateTimeZone($zonaHoraria)))->setTimeZone(new DateTimeZone('UTC'))->format($formatoFecha);
+
+    $url_google = 'https://calendar.google.com/calendar/render?' . http_build_query(array(
+        'action'  => 'TEMPLATE',
+        'text'    => $title,
+        'dates'   => $fechaInicioUTC . '/' . $fechaFinUTC,
+    ));
+
+    $url_ical = site_url('/2024/depratieventos/') . '?' . http_build_query(array(
+        'method'     => 'ical',
+        'id'         => $event_id,
+        'occurrence' => $fecha_ocurrencia,
+    ));
+
+    return array('google' => $url_google, 'ical' => $url_ical);
+}
+
+// Función para construir el HTML de un evento
+function construir_html_evento($post, $thum, $title, $fechaFormateada, $horas, $location_name, $idEvento, $urls_calendario) {
+    $html = '<article class="mec-event-article mec-clear mec-divider-toggle mec-toggle-202405-464" itemscope="">';
+    $html .= '<div class="mec-event-image"><a href="' . esc_url($post->guid) . '"><img src="' . esc_url($thum) . '"/></a></div>';
+    $html .= '<h4 class="mec-event-title"><a href="' . esc_url($post->guid) . '">' . esc_html($title) . '</a></h4>';
+    $html .= '<div class="btn-fecha">' . esc_html($fechaFormateada) . '</div>';
+    $html .= '<div class="btn-hora"> De ' . esc_html($horas['inicio']) . ' a ' . esc_html($horas['fin']) . ' </div>';
+    $html .= '<div class="btn-lugar">' . esc_html($location_name) . '</div>';
+    $html .= '<div class="btn-agenda-evento" data-ref="' . esc_attr($idEvento) . '">Agregar a calendario</div>';
+    $html .= '<div class="btn-cal-google-' . esc_attr($idEvento) . ' ocultar-grid"><a href="' . esc_url($urls_calendario['google']) . '" target="_blank">Google</a></div>';
+    $html .= '<div class="btn-cal-ios-' . esc_attr($idEvento) . ' ocultar-grid"><a href="' . esc_url($urls_calendario['ical']) . '">iCal / Outlook export</a></div>';
+    $html .= '<div class="btn-ver-mas">Conoce más</div>';
+    $html .= '</article>';
+    return $html;
 }
 
 /*obtención meta*/
