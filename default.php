@@ -234,16 +234,16 @@ $banner_module = $this->can_display_banner_module($event);?>
 					<?php } ?>
 				</div>
 				<?php
-				$fechaOriginal = $event->date['start']['date'];				
+				$fechaOriginal = $event->date['start']['date'];
 				$fechaObjeto = date_create_from_format('Y-m-d', $fechaOriginal);
-				setlocale(LC_TIME, 'es_ES.UTF-8');				
+				setlocale(LC_TIME, 'es_ES.UTF-8');
 				$fechaFormateada = strftime('%d de %B del %Y', $fechaObjeto->getTimestamp());
-				$timestamp = $event->date['start']['timestamp'];					
-				$horainicio = date('H\hi', $timestamp); 
-				$timestamp = $event->date['end']['timestamp'];					
-				$horafin = date('H\hi', $timestamp); 
+				$timestamp = $event->date['start']['timestamp'];
+				$horainicio = date('H\hi', $timestamp);
+				$timestamp = $event->date['end']['timestamp'];
+				$horafin = date('H\hi', $timestamp);
 				?>
-				<div class="col-md-6 bloque_datos">					
+				<div class="col-md-6 bloque_datos">
 					<h1 class="mec-event-title"><?php the_title(); ?></h1>
 					<div class="btn-fecha"><?= $fechaFormateada ?></div>
 					<div class="btn-hora"> De <?= $horainicio ?> a <?= $horafin ?> </div>
@@ -252,14 +252,14 @@ $banner_module = $this->can_display_banner_module($event);?>
 							esc_html($location['name']);
 						}?>
 					</div>
-					<div class="btn-agendar">Agregar a calendario</div>					
-				</div>	
-			</div>		
+					<div class="btn-agendar">Agregar a calendario</div>
+				</div>
+			</div>
 			<div class="row bloque_descripcion">
 				<div class="col-md-4 bloque_minuto">
-				<?php if (get_field('field_662a9f57a45b9')){				
+				<?php if (get_field('field_662a9f57a45b9')){
 					$lista_minuto = get_field('field_662a9f57a45b9');
-					$lista_minuto = explode("\n", $lista_minuto);				
+					$lista_minuto = explode("\n", $lista_minuto);
 					?>
 					<p class="text-label-evento"> Minuto a minuto:</p>
 					<?php
@@ -269,12 +269,12 @@ $banner_module = $this->can_display_banner_module($event);?>
 							<span class="lista_hora">
 								<?= $item[0]?>
 							</span> <?= $item[1]; ?>
-							</p>  
-					<?php } 
+							</p>
+					<?php }
 				 } ?>
 			</div>
-				<div class="col-md-4 bloque_kit">	
-				<?php 
+				<div class="col-md-4 bloque_kit">
+				<?php
 				if ( get_field('field_662a9f87a45ba' )){
 					$lista_kit = get_field('field_662a9f87a45ba');
 					$lista = explode("\n", $lista_kit);?>
@@ -335,20 +335,20 @@ $banner_module = $this->can_display_banner_module($event);?>
 			<?php if (isset($event->date) && !empty($event->date)){
 			   		if($this->main->is_sold($event) && count($event->dates) <= 1){?>
 				  <?php
-				  	$event_id        = $event->ID;
+				 	$event_id = $event->ID;
 				  	$dates = (isset($event->dates) ? $event->dates : array($event->date));
 				  	$occurrence_time = ($dates[0]['start']['timestamp'] ?? strtotime($dates[0]['start']['date']));
-				  	$tickets         = get_post_meta( $event_id, 'mec_tickets', true );
-				  	$book         = $this->getBook();
+				  	$tickets = get_post_meta( $event_id, 'mec_tickets', true );
+				  	$book = $this->getBook();
 				  	$availability = $book->get_tickets_availability( $event_id, $occurrence_time );
-				  	$sales_end                   = 0;
-                  	$ticket_limit                = -1;
+				  	$sales_end = 0;
+                  	$ticket_limit = -1;
 				  	$ticket_sales_ended_messages = [];
-				  	$stop_selling                = '';
+				  	$stop_selling = '';
 				  	foreach ( $tickets as $ticket_id => $ticket ){
 						$ticket_limit = $availability[$ticket_id] ?? -1;
 						$ticket_name  = isset( $ticket['name'] ) ? '<strong>' . esc_html($ticket['name']) . '</strong>' : '';
-						$key          = 'stop_selling_' . $ticket_id;
+						$key = 'stop_selling_' . $ticket_id;
 						if ( !isset( $availability[ $key ] ) ) {
 							continue;
 						}
@@ -373,7 +373,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 					 }
 					}else{ ?>
 						<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="mec-sold-tickets warning-msg">
-							<?php esc_html_e( 'Sold out!', 'modern-events-calendar-lite');do_action( 'mec_booking_sold_out', $event, null, null, array( $event->date ) ); ?> 
+							<?php esc_html_e( 'Sold out!', 'modern-events-calendar-lite');do_action( 'mec_booking_sold_out', $event, null, null, array( $event->date ) ); ?>
 						</div>
 					<?php }
 					}elseif($this->main->can_show_booking_module($event)){?>
@@ -381,8 +381,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 				$data_lity_class = '';
 				if(isset($settings['single_booking_style']) && $settings['single_booking_style'] == 'modal' ){
 					$data_lity_class = 'lity-hide '; 
-				}
-				?>
+				}?>
 				<div id="mec-events-meta-group-booking-<?= esc_attr($this->uniqueid); ?>" class="<?= esc_attr($data_lity_class); ?> mec-events-meta-group mec-events-meta-group-booking">
 					<?php
 					if(isset($settings['booking_user_login']) && $settings['booking_user_login'] == '1' && !is_user_logged_in() ){?>
@@ -399,7 +398,7 @@ $banner_module = $this->can_display_banner_module($event);?>
 			<div class="mec-events-meta-group mec-events-meta-group-tags">
                 <?=get_the_term_list(get_the_ID(), apply_filters('mec_taxonomy_tag', ''), esc_html__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
 			</div>
-		</div>		
+		</div>
 			<div class="col-md-4">
                 <?php
                     $GLOBALS['mec-widget-single'] = $this;
@@ -418,8 +417,8 @@ $banner_module = $this->can_display_banner_module($event);?>
                     $GLOBALS['mec-widget-more_info_title'] = $more_info_title;
                     $GLOBALS['mec-banner_module'] = $banner_module;
                     $GLOBALS['mec-icons'] = $this->icons;
-                ?>						
-			</div>		
+                ?>
+			</div>
 	</article>
 	<?php $this->display_related_posts_widget($event->ID); ?>
 	<?php $this->display_next_previous_events($event); ?>
