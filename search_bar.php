@@ -72,7 +72,6 @@ if((isset($settings['search_bar_category']) && $settings['search_bar_category'] 
 
 $output .= '<input type="text" name="fecha" id="datepicker" autocomplete="off" style="display:none;">
 <button type="button" class="mec-icon-calendario" id="calendario"></button>';
-//$output .= '<input class="mec-search-bar-input" id="mec-calendario-input" type="date" value="'.esc_html__('Buscar', 'modern-events-calendar-lite').'" /><input type="hidden" name="post_type" value="mec-events">';
 $output .= '<input class="mec-search-bar-input" id="mec-search-bar-input" type="submit" alt="'.esc_html__('Buscar', 'modern-events-calendar-lite').'" value="'.esc_html__('Buscar', 'modern-events-calendar-lite').'" /><input type="hidden" name="post_type" value="mec-events">';
 $output .= '</form></div>';?>
 <?= MEC_kses::form($output);?>
