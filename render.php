@@ -83,30 +83,31 @@ $map_events = [];
                             </h4>
                             <div class="mec-event-detail">
                                 <div class="mec-event-loc-place"><?= (isset($location['name']) ? esc_html($location['name']) : '') . (isset($location['address']) && !empty($location['address']) ? ' | '.esc_html($location['address']) : ''); ?></div>
-                                <?php if($this->include_events_times and trim($start_time)) ?>
-                                    <?= esc_html(MEC_kses::element($this->main->display_time($start_time, $end_time))); ?>
+                                <?php if($this->include_events_times and trim($start_time)){ ?>
+                                    <?= esc_html(MEC_kses::element($this->main->display_time($start_time, $end_time))); 
+                                    } ?>
                                 <?= esc_html(MEC_kses::element($this->display_categories($event))); ?>
                                 <?= esc_html(MEC_kses::element($this->display_organizers($event))); ?>
                                 <?= esc_html(MEC_kses::element($this->display_cost($event))); ?>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-2">
-                            <?php if(isset($event->date['start']['timestamp']) && current_user_can(current_user_can('administrator') ? 'manage_options' : 'mec_bookings') && $total_attendees = $this->main->get_total_attendees_by_event_occurrence($event->data->ID, $event->date['start']['timestamp'])): ?>
-                            <a href="<?= trim($this->main->URL('admin'), '/ ').'/?mec-dl-bookings=1&event_id='.$event->data->ID.'&occurrence='.$event->date['start']['timestamp']; ?>"><?= esc_html__('Download Attendees', 'modern-events-calendar-lite'); ?> (<?= esc_html($total_attendees); ?>)</a>
-                            <?php endif; ?>
+                            <?php if(isset($event->date['start']['timestamp']) && current_user_can(current_user_can('administrator') ? 'manage_options' : 'mec_bookings') && $total_attendees = $this->main->get_total_attendees_by_event_occurrence($event->data->ID, $event->date['start']['timestamp'])){ ?>
+                                <a href="<?= trim($this->main->URL('admin'), '/ ').'/?mec-dl-bookings=1&event_id='.$event->data->ID.'&occurrence='.$event->date['start']['timestamp']; ?>"><?= esc_html__('Download Attendees', 'modern-events-calendar-lite'); ?> (<?= esc_html($total_attendees); ?>)</a>
+                            <?php } ?>
                         </div>  
                 <?php }else{?>
                     <div class="mec-event-image"><?= MEC_kses::element($this->display_link($event, $event->data->thumbnails['full'])); ?></div>                        
-                        <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days'): ?>
+                        <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days'){?>
                             <div class="mec-event-date mec-color"><?= $this->icons->display('calendar'); ?> <?= esc_html($this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['start']['date']))); ?></div>
-                        <?php else: ?>
+                        <?php }else{ ?>
                             <div class="mec-event-date mec-color"><?= $this->icons->display('calendar'); ?> <?= MEC_kses::element($this->main->dateify($event, $this->date_format_classic_1)); ?></div>
                             <div class="mec-event-time mec-color">
                                 <?php if($this->include_events_times and trim($start_time)) { ?>
                                     <?= $this->icons->display('clock'); ?>
                                     <?= MEC_kses::element($this->main->display_time($start_time, $end_time)); ?>
                                 <?php } ?></div>
-                        <?php endif; ?>
+                        <?php } ?>
                         <?= MEC_kses::element($this->get_label_captions($event)); 
                         $title = $event->data->title;
                         $description = $event->data->content;
@@ -208,17 +209,13 @@ $map_events = [];
                         <?php if(isset($settings['sn']['googlecal'])){?>
                         <div class="btn-cal-google-<?= $event->ID?> ocultar-grid"> 
                             <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" 
-                                            href="<?= $url1; ?>" target="_blank">
-                                            Google
-                            </a>
+                               href="<?= $url1; ?>" target="_blank" rel="noopener">Google</a>
                         </div>
                         <?php }?>
                         <?php if(isset($settings['sn']['ical'])){ ?>
                         <div class="btn-cal-ios-<?= $event->ID?> ocultar-grid">
                                     <a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" 
-                                    href="<?= $url2 ?>">
-                                        iCal / Outlook export
-                                    </a>
+                                    href="<?= $url2 ?>">iCal / Outlook export</a>
                                 </div>
                         <?php } ?>
                         <div class="btn-ver-mas">
