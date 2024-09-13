@@ -173,12 +173,7 @@ if ( ! function_exists( 'hello_elementor_content_width' ) ) {
 	 * Set default content width.
 	 *
 	 * @return void
-	 */
-	/*
-	function hello_elementor_content_width() {
-		$GLOBALS['content_width'] = apply_filters( 'hello_elementor_content_width', 800 );
-	}
-	*/
+	 */	
 }
 //add_action( 'after_setup_theme', 'hello_elementor_content_width', 0 );
 
